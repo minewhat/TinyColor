@@ -242,7 +242,9 @@ tinycolor.prototype = {
     spin: function() {
         return this._applyModification(spin, arguments);
     },
-
+    tint: function() {
+        return this._applyModification(tint, arguments);
+   },
     _applyCombination: function(fn, args) {
         return fn.apply(null, [this].concat([].slice.call(args)));
     },
@@ -621,6 +623,11 @@ function spin(color, amount) {
     var hue = (hsl.h + amount) % 360;
     hsl.h = hue < 0 ? 360 + hue : hue;
     return tinycolor(hsl);
+}
+
+function tint (color, amount) {
+  amount = (amount === 0) ? 0 : (amount || 10);
+  return tinycolor.mix(color, 'white', amount);
 }
 
 // Combination Functions
